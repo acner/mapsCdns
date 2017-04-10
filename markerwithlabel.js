@@ -5,41 +5,7 @@
  * @copyright Copyright 2012 Gary Little [gary at luxcentral.com]
  * @fileoverview MarkerWithLabel extends the Google Maps JavaScript API V3
  *  <code>google.maps.Marker</code> class.
- *  <p>
- *  MarkerWithLabel allows you to define markers with associated labels. As you would expect,
- *  if the marker is draggable, so too will be the label. In addition, a marker with a label
- *  responds to all mouse events in the same manner as a regular marker. It also fires mouse
- *  events and "property changed" events just as a regular marker would. Version 1.1 adds
- *  support for the raiseOnDrag feature introduced in API V3.3.
- *  <p>
- *  If you drag a marker by its label, you can cancel the drag and return the marker to its
- *  original position by pressing the <code>Esc</code> key. This doesn't work if you drag the marker
- *  itself because this feature is not (yet) supported in the <code>google.maps.Marker</code> class.
- */
-
-/*!
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/*jslint browser:true */
-/*global document,google */
-
-/**
- * @param {Function} childCtor Child class.
- * @param {Function} parentCtor Parent class.
- * @private
- */
+*/
 function inherits(childCtor, parentCtor) {
   /* @constructor */
   function tempCtor() {}
@@ -81,7 +47,6 @@ function MarkerLabel_(marker, crossURL, handCursorURL) {
   this.crossDiv_ = MarkerLabel_.getSharedCross(crossURL);
 }
 
-inherits(MarkerLabel_, google.maps.OverlayView);
 
 /**
  * Returns the DIV for the cross used when dragging a marker when the
@@ -476,60 +441,7 @@ MarkerLabel_.prototype.setVisible = function () {
   this.eventDiv_.style.display = this.labelDiv_.style.display;
 };
 
-/**
- * @name MarkerWithLabelOptions
- * @class This class represents the optional parameter passed to the {@link MarkerWithLabel} constructor.
- *  The properties available are the same as for <code>google.maps.Marker</code> with the addition
- *  of the properties listed below. To change any of these additional properties after the labeled
- *  marker has been created, call <code>google.maps.Marker.set(propertyName, propertyValue)</code>.
- *  <p>
- *  When any of these properties changes, a property changed event is fired. The names of these
- *  events are derived from the name of the property and are of the form <code>propertyname_changed</code>.
- *  For example, if the content of the label changes, a <code>labelcontent_changed</code> event
- *  is fired.
- *  <p>
- * @property {string|Node} [labelContent] The content of the label (plain text or an HTML DOM node).
- * @property {Point} [labelAnchor] By default, a label is drawn with its anchor point at (0,0) so
- *  that its top left corner is positioned at the anchor point of the associated marker. Use this
- *  property to change the anchor point of the label. For example, to center a 50px-wide label
- *  beneath a marker, specify a <code>labelAnchor</code> of <code>google.maps.Point(25, 0)</code>.
- *  (Note: x-values increase to the right and y-values increase to the top.)
- * @property {string} [labelClass] The name of the CSS class defining the styles for the label.
- *  Note that style values for <code>position</code>, <code>overflow</code>, <code>top</code>,
- *  <code>left</code>, <code>zIndex</code>, <code>display</code>, <code>marginLeft</code>, and
- *  <code>marginTop</code> are ignored; these styles are for internal use only.
- * @property {Object} [labelStyle] An object literal whose properties define specific CSS
- *  style values to be applied to the label. Style values defined here override those that may
- *  be defined in the <code>labelClass</code> style sheet. If this property is changed after the
- *  label has been created, all previously set styles (except those defined in the style sheet)
- *  are removed from the label before the new style values are applied.
- *  Note that style values for <code>position</code>, <code>overflow</code>, <code>top</code>,
- *  <code>left</code>, <code>zIndex</code>, <code>display</code>, <code>marginLeft</code>, and
- *  <code>marginTop</code> are ignored; these styles are for internal use only.
- * @property {boolean} [labelInBackground] A flag indicating whether a label that overlaps its
- *  associated marker should appear in the background (i.e., in a plane below the marker).
- *  The default is <code>false</code>, which causes the label to appear in the foreground.
- * @property {boolean} [labelVisible] A flag indicating whether the label is to be visible.
- *  The default is <code>true</code>. Note that even if <code>labelVisible</code> is
- *  <code>true</code>, the label will <i>not</i> be visible unless the associated marker is also
- *  visible (i.e., unless the marker's <code>visible</code> property is <code>true</code>).
- * @property {boolean} [raiseOnDrag] A flag indicating whether the label and marker are to be
- *  raised when the marker is dragged. The default is <code>true</code>. If a draggable marker is
- *  being created and a version of Google Maps API earlier than V3.3 is being used, this property
- *  must be set to <code>false</code>.
- * @property {boolean} [optimized] A flag indicating whether rendering is to be optimized for the
- *  marker. <b>Important: The optimized rendering technique is not supported by MarkerWithLabel,
- *  so the value of this parameter is always forced to <code>false</code>.
- * @property {string} [crossImage="http://maps.gstatic.com/intl/en_us/mapfiles/drag_cross_67_16.png"]
- *  The URL of the cross image to be displayed while dragging a marker.
- * @property {string} [handCursor="http://maps.gstatic.com/intl/en_us/mapfiles/closedhand_8_8.cur"]
- *  The URL of the cursor to be displayed while dragging a marker.
- */
-/**
- * Creates a MarkerWithLabel with the options specified in {@link MarkerWithLabelOptions}.
- * @constructor
- * @param {MarkerWithLabelOptions} [opt_options] The optional parameters.
- */
+
 function MarkerWithLabel(opt_options) {
   opt_options = opt_options || {};
   opt_options.labelContent = opt_options.labelContent || "";
@@ -565,7 +477,7 @@ function MarkerWithLabel(opt_options) {
   google.maps.Marker.apply(this, arguments);
 }
 
-inherits(MarkerWithLabel, google.maps.Marker);
+
 
 /**
  * Overrides the standard Marker setMap function.
@@ -580,3 +492,8 @@ MarkerWithLabel.prototype.setMap = function (theMap) {
   // ... then deal with the label:
   this.label.setMap(theMap);
 };
+
+$(function(){
+  inherits(MarkerLabel_, google.maps.OverlayView);
+inherits(MarkerWithLabel, google.maps.Marker);
+})
